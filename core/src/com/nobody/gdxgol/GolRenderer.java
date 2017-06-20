@@ -16,6 +16,9 @@ public class GolRenderer {
     private GolGrid grid;
     private Vector2 renderSize;
 
+    private Vector2 gridDrawOffset = new Vector2();
+    private Vector2 cellDrawSize = new Vector2();
+
     public GolRenderer(GolGrid golGrid, Vector2 surfaceSize) {
         grid = golGrid;
         renderSize = surfaceSize;
@@ -29,11 +32,13 @@ public class GolRenderer {
     public void drawGrid() {
         boolean[][] cells = grid.getCells();
         // calculate cell size
-        int cellW = ((int)renderSize.x) / cells.length;
-        int cellH = ((int)renderSize.y) / cells[0].length;
+        int cellW = ((int) renderSize.x) / cells.length;
+        int cellH = ((int) renderSize.y) / cells[0].length;
+        cellDrawSize.set(cellW, cellH);
         // calculate offset
-        int xOff = (int)((renderSize.x) - cellW * cells.length) / 2;
-        int yOff = (int)((renderSize.y) - cellH * cells[0].length) / 2;
+        int xOff = (int) ((renderSize.x) - cellW * cells.length) / 2;
+        int yOff = (int) ((renderSize.y) - cellH * cells[0].length) / 2;
+        gridDrawOffset.set(xOff, yOff);
         // draw grid
         for (int i = 0; i < cells.length; i++) {
             for (int j = 0; j < cells[i].length; j++) {
@@ -54,4 +59,8 @@ public class GolRenderer {
             }
         }
     }
+
+    public Vector2 getGridDrawOffset() { return gridDrawOffset; }
+
+    public Vector2 getCellDrawSize() { return cellDrawSize; }
 }

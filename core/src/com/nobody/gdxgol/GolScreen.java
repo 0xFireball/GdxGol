@@ -20,7 +20,13 @@ public class GolScreen implements Screen {
     public void show() {
         grid = new GolGrid(DEFAULT_GRID_SIZE, DEFAULT_GRID_SIZE);
         r = new GolRenderer(grid, new Vector2(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
-     }
+
+        init();
+    }
+
+    private void init() {
+
+    }
 
     @Override
     public void render(float delta) {
@@ -34,9 +40,43 @@ public class GolScreen implements Screen {
             // randomize grid
             grid.randomize();
         }
+        if (Gdx.input.isKeyJustPressed(Input.Keys.C)) {
+            // randomize grid
+            grid.clear();
+        }
         if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.isKeyPressed(Input.Keys.N)) {
             // step
             grid.step();
+        }
+
+        if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
+            Gdx.app.exit();
+        }
+
+        if (Gdx.input.justTouched() &&
+                (Gdx.input.isButtonPressed(Input.Buttons.LEFT)
+                        || Gdx.input.isButtonPressed(Input.Buttons.RIGHT)
+                        || Gdx.input.isButtonPressed(Input.Buttons.MIDDLE))) {
+            // take input for manually setting cells
+            int cX = Gdx.input.getX();
+            int cY = Gdx.input.getY();
+            if (cX > r.getGridDrawOffset().x
+                    && cX < r.getGridDrawOffset().x + r.getCellDrawSize().x * grid.getCells().length
+                    && cY > r.getGridDrawOffset().y
+                    && cY < r.getGridDrawOffset().y + r.getCellDrawSize().y * grid.getCells()[0].length) {
+                cX -= r.getGridDrawOffset().x;
+                cY -= r.getGridDrawOffset().y;
+                int cellX = (int) (cX / r.getCellDrawSize().x);
+                int cellY = (int) (grid.getCells()[0].length - (cY / r.getCellDrawSize().y));
+                // toggle cell state
+                if (Gdx.input.isButtonPressed(Input.Buttons.LEFT)) {
+                    grid.getCells()[cellY][cellX] = true;
+                } else if (Gdx.input.isButtonPressed(Input.Buttons.RIGHT)) {
+                    grid.getCells()[cellY][cellX] = false;
+                } else if (Gdx.input.isButtonPressed(Input.Buttons.MIDDLE)) {
+                    grid.getCells()[cellY][cellX] = !grid.getCells()[cellY][cellX];
+                }
+            }
         }
     }
 
