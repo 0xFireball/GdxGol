@@ -2,6 +2,8 @@
 
 A simple Game of Life with LibGDX
 
+![screenshot](scr/gdxgol_scr.png)
+
 Interact:
 
 R - randomize
