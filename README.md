@@ -6,6 +6,7 @@ Interact:
 
 R - randomize
 N - hold to step repeatedly
+C - clear
 SPACE - step once
 LMB - turn cell on
 RMB - turn cell off
