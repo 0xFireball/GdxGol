@@ -1,6 +1,5 @@
 package com.nobody.gdxgol;
 
-import java.util.Arrays;
 import java.util.Random;
 
 /**
@@ -45,7 +44,10 @@ public class GolGrid {
                 if (i == 0 && j == 0) continue;
                 int ii = y + i;
                 int jj = x + j;
-                if (ii < 0 || ii >= cells.length || jj < 0 || jj >= cells[ii].length) continue;
+                if (ii < 0) ii = cells.length - 1;
+                if (ii >= cells.length) ii = 0;
+                if (jj < 0) jj = cells[ii].length - 1;
+                if (jj >= cells[ii].length) jj = 0;
                 if (cells[ii][jj]) n++;
             }
         }
