@@ -19,6 +19,9 @@ public class GolRenderer {
     private Vector2 gridDrawOffset = new Vector2();
     private Vector2 cellDrawSize = new Vector2();
 
+    private int tCol = 0;
+    private Color drawColor;
+
     public GolRenderer(GolGrid golGrid, Vector2 surfaceSize) {
         grid = golGrid;
         renderSize = surfaceSize;
@@ -30,6 +33,12 @@ public class GolRenderer {
     }
 
     public void drawGrid() {
+        float brightness = 0.7f;
+        float cr = (float) ((Math.sin(tCol / 47f) + 1) * brightness * 0.5);
+        float cg = (float) ((Math.sin(tCol / 53f) + 1) * brightness * 0.5);
+        float cb = (float) ((Math.sin(tCol / 41f) + 1) * brightness * 0.5);
+        drawColor = new Color(cr, cg, cb, 0.8f);
+        tCol++;
         boolean[][] cells = grid.getCells();
         // calculate cell size
         int cellW = ((int) renderSize.x) / cells.length;
@@ -46,13 +55,13 @@ public class GolRenderer {
                 int cx = xOff + j * cellW;
                 // draw outline
                 r.begin(ShapeRenderer.ShapeType.Line);
-                r.setColor(Color.CYAN);
+                r.setColor(drawColor);
                 r.rect(cx, cy, cellW, cellH);
                 r.end();
                 // fill for living cells
                 if (cells[i][j]) {
                     r.begin(ShapeRenderer.ShapeType.Filled);
-                    r.setColor(Color.CYAN);
+                    r.setColor(drawColor);
                     r.rect(cx, cy, cellW, cellH);
                     r.end();
                 }
@@ -60,7 +69,11 @@ public class GolRenderer {
         }
     }
 
-    public Vector2 getGridDrawOffset() { return gridDrawOffset; }
+    public Vector2 getGridDrawOffset() {
+        return gridDrawOffset;
+    }
 
-    public Vector2 getCellDrawSize() { return cellDrawSize; }
+    public Vector2 getCellDrawSize() {
+        return cellDrawSize;
+    }
 }
