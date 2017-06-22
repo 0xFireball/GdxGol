@@ -10,6 +10,8 @@ R - randomize
 
 N - hold to step repeatedly
 
+P - toggle pause/play
+
 C - clear
 
 SPACE - step once

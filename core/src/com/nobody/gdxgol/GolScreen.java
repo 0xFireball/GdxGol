@@ -16,6 +16,8 @@ public class GolScreen implements Screen {
     private GolGrid grid;
     private GolRenderer r;
 
+    private boolean playing = false;
+
     @Override
     public void show() {
         grid = new GolGrid(DEFAULT_GRID_SIZE, DEFAULT_GRID_SIZE);
@@ -45,7 +47,16 @@ public class GolScreen implements Screen {
             grid.clear();
         }
         if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.isKeyPressed(Input.Keys.N)) {
-            // step
+            // manual step and disable play
+            playing = false;
+            grid.step();
+        }
+        if (Gdx.input.isKeyJustPressed(Input.Keys.P)) {
+            playing = !playing;
+        }
+
+        // continue if playing
+        if (playing) {
             grid.step();
         }
 
