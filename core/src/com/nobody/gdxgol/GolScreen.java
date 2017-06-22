@@ -53,10 +53,9 @@ public class GolScreen implements Screen {
             Gdx.app.exit();
         }
 
-        if (Gdx.input.justTouched() &&
+        if (Gdx.input.isTouched() &&
                 (Gdx.input.isButtonPressed(Input.Buttons.LEFT)
-                        || Gdx.input.isButtonPressed(Input.Buttons.RIGHT)
-                        || Gdx.input.isButtonPressed(Input.Buttons.MIDDLE))) {
+                        || Gdx.input.isButtonPressed(Input.Buttons.RIGHT))) {
             // take input for manually setting cells
             int cX = Gdx.input.getX();
             int cY = Gdx.input.getY();
@@ -73,8 +72,6 @@ public class GolScreen implements Screen {
                     grid.getCells()[cellY][cellX] = true;
                 } else if (Gdx.input.isButtonPressed(Input.Buttons.RIGHT)) {
                     grid.getCells()[cellY][cellX] = false;
-                } else if (Gdx.input.isButtonPressed(Input.Buttons.MIDDLE)) {
-                    grid.getCells()[cellY][cellX] = !grid.getCells()[cellY][cellX];
                 }
             }
         }

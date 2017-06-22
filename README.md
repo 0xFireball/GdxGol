@@ -18,6 +18,4 @@ LMB - turn cell on
 
 RMB - turn cell off
 
-MMB - toggle cell state
-
 ESC - quit
