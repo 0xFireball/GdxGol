@@ -21,6 +21,7 @@ public class GolRenderer {
 
     private int tCol = 0;
     private Color drawColor;
+    private Color outlineColor = new Color(0.9f, 0.9f, 0.9f, 1f);
 
     public GolRenderer(GolGrid golGrid, Vector2 surfaceSize) {
         grid = golGrid;
@@ -55,14 +56,14 @@ public class GolRenderer {
                 int cx = xOff + j * cellW;
                 // draw outline
                 r.begin(ShapeRenderer.ShapeType.Line);
-                r.setColor(drawColor);
+                r.setColor(outlineColor);
                 r.rect(cx, cy, cellW, cellH);
                 r.end();
                 // fill for living cells
                 if (cells[i][j]) {
                     r.begin(ShapeRenderer.ShapeType.Filled);
                     r.setColor(drawColor);
-                    r.rect(cx, cy, cellW, cellH);
+                    r.rect(cx + 1, cy + 1, cellW - 1, cellH - 1);
                     r.end();
                 }
             }
