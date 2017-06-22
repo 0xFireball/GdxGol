@@ -6,7 +6,7 @@ A simple Game of Life with LibGDX
 
 Interact:
 
-R - randomize
+R - randomize every cell
 
 N - hold to step repeatedly
 
