@@ -26,10 +26,10 @@ public class GolGrid {
         for (int i = 0; i < cells.length; i++) {
             for (int j = 0; j < cells[i].length; j++) {
                 int n = neighbors(i, j);
-                if (cells[i][j] && !rules.survival[n]) {
+                if (cells[i][j] && !rules.getSurvival()[n]) {
                     newCells[i][j] = false;
                 }
-                if (!cells[i][j] && rules.birth[n]) {
+                if (!cells[i][j] && rules.getBirth()[n]) {
                     newCells[i][j] = true;
                 }
             }
