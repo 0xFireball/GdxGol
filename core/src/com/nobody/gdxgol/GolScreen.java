@@ -17,6 +17,7 @@ public class GolScreen implements Screen {
     private GolRenderer r;
 
     private boolean playing = false;
+    private boolean forever = false;
 
     @Override
     public void show() {
@@ -58,6 +59,14 @@ public class GolScreen implements Screen {
         // continue if playing
         if (playing) {
             grid.step();
+
+            if (forever) {
+                grid.forever();
+            }
+        }
+
+        if (Gdx.input.isKeyJustPressed(Input.Keys.F)) {
+            forever = !forever;
         }
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {

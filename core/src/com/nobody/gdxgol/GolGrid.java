@@ -1,5 +1,7 @@
 package com.nobody.gdxgol;
 
+import com.badlogic.gdx.math.Vector2;
+
 import java.util.Random;
 
 /**
@@ -11,11 +13,16 @@ public class GolGrid {
 
     private GolRules rules = new GolRules();
 
+    /* for forever mode */
+    private int lastChanges = 0;
+
     public GolGrid(int width, int height) {
         cells = new boolean[width][height];
     }
 
     public void step() {
+        // reset lastChanges
+        lastChanges = 0;
         // duplicate grid
         boolean[][] newCells = new boolean[cells.length][cells[0].length];
         for (int i = 0; i < cells.length; i++) {
@@ -28,9 +35,11 @@ public class GolGrid {
                 int n = neighbors(i, j);
                 if (cells[i][j] && !rules.survival[n]) {
                     newCells[i][j] = false;
+                    lastChanges++;
                 }
                 if (!cells[i][j] && rules.birth[n]) {
                     newCells[i][j] = true;
+                    lastChanges++;
                 }
             }
         }
@@ -77,5 +86,25 @@ public class GolGrid {
 
     public GolRules getRules() {
         return rules;
+    }
+
+    public void forever() {
+        double foreverSpawnThreshold = 1d / 20;
+        if (lastChanges / (cells.length * cells[0].length) < foreverSpawnThreshold) {
+            // if the number of changes is less than the threshold, spawn a random blob
+            int blobX = (int) (Math.random() * cells.length);
+            int blobY = (int) (Math.random() * cells[0].length);
+
+            int blobSizeDiv = 8;
+            int blobWidth = cells.length / blobSizeDiv;
+            int blobHeight = cells[0].length / blobSizeDiv;
+            // generate random blob
+            Random r = new Random();
+            for (int i = 0; i < blobHeight; i++) {
+                for (int j = 0; j < blobWidth; j++) {
+                    cells[(i + blobY) % cells.length][(j + blobX) % cells[0].length] = r.nextBoolean();
+                }
+            }
+        }
     }
 }
