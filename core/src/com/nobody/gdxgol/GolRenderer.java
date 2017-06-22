@@ -63,7 +63,7 @@ public class GolRenderer {
                 if (cells[i][j]) {
                     r.begin(ShapeRenderer.ShapeType.Filled);
                     r.setColor(drawColor);
-                    r.rect(cx + 1, cy + 1, cellW - 1, cellH - 1);
+                    r.rect(cx, cy + 1, cellW - 1, cellH - 1);
                     r.end();
                 }
             }
